@@ -4,57 +4,97 @@ namespace App\Helpers;
 
 class ApiResponse
 {
-    public static function success($data = null)
+    public static function continue()
     {
         return response()->json([
-            'code'    => 200,
-            'data'    => $data,
-            'message' => 'Success.'
-        ]);
+            'success' => true,
+            'message' => 'Request approved.',
+            'data' => null,
+        ], 100);
     }
 
-    public static function dataNotfound()
+    public static function switchProtocol()
     {
         return response()->json([
-            'code'    => 204,
-            'data'    => null,
-            'message' => 'Data not found.'
-        ]);
+            'success' => true,
+            'message' => 'Request switch protocol.',
+            'data' => null,
+        ], 101);
     }
 
-    public static function internalServerError($data = null)
+    public static function success($data = null, string $message = 'Success.')
     {
         return response()->json([
-            'code'    => 500,
-            'data'    => $data,
-            'message' => 'Internal server error.'
-        ]);
+            'success' => true,
+            'message' => $message,
+            'data' => $data,
+        ], 200);
     }
 
-    public static function unauthorized()
+    public static function dataNotfound($errors = null, string $message = 'Data not found.')
     {
         return response()->json([
-            'code'    => 401,
-            'data'    => null,
-            'message' => 'Unauthorized.'
-        ]);
+            'success' => true,
+            'message' => $message,
+            'data' => null,
+            'errors' => $errors
+        ], 200);
     }
 
-    public static function forbidden()
+    public static function internalServerError($errors = null, string $message = 'Internal server error.')
     {
         return response()->json([
-            'code'    => 403,
-            'data'    => null,
-            'message' => 'Forbidden'
-        ]);
+            'success' => false,
+            'message' => $message,
+            'data' => null,
+            'errors' => $errors
+        ], 500);
     }
 
-    public static function unprocessableEntity()
+    public static function unauthorized(string $message = 'Unauthorized.')
     {
         return response()->json([
-            'code'    => 422,
-            'data'    => null,
-            'message' => 'Unprocessable Entity'
-        ]);
+            'success' => false,
+            'message' => $message,
+            'data' => null,
+        ], 401);
+    }
+
+    public static function forbidden(string $message = 'Forbidden.')
+    {
+        return response()->json([
+            'success' => false,
+            'message' => $message,
+            'data' => null,
+        ], 403);
+    }
+
+    public static function unprocessableContent($errors = null, string $message = 'Unprocessable Content.')
+    {
+        return response()->json([
+            'success' => false,
+            'message' => $message,
+            'data' => null,
+            'errors' => $errors
+        ], 422);
+    }
+
+    public static function badResource()
+    {
+        return response()->json([
+            'success' => false,
+            'message' => 'Bad resource.',
+            'data' => null,
+        ], 301);
+    }
+
+    public static function badRequest($errors = null, string $message = 'Bad request.')
+    {
+        return response()->json([
+            'success' => false,
+            'message' => $message,
+            'data' => null,
+            'errors' => $errors
+        ], 400);
     }
 }
