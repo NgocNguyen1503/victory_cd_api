@@ -38,7 +38,7 @@ class ApiResponse
             'message' => $message,
             'data' => null,
             'errors' => $errors
-        ], 200);
+        ], 404);
     }
 
     public static function internalServerError($errors = null, string $message = 'Internal server error.')

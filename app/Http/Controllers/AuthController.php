@@ -20,7 +20,7 @@ class AuthController extends Controller
             ]);
 
             if (!Auth::attempt($validated)) {
-                return ApiResponse::dataNotfound('User not found. Please check your infomation.');
+                return ApiResponse::dataNotfound('User not found. Please check your information.');
             }
             $user = Auth::user();
             $token = $user->createToken($user->email)->plainTextToken;
@@ -44,13 +44,14 @@ class AuthController extends Controller
             ]);
 
             if (User::where('email', $validated['email'])->first() != null) {
-                return ApiResponse::forbidden("This email is already associated with an account");
+                return ApiResponse::forbidden("This email is already associated with an account.");
             }
 
             $user = User::create([
                 'name' => $validated['name'],
                 'email' => $validated['email'],
-                'password' => Hash::make($validated['password'])
+                'password' => Hash::make($validated['password']),
+                'role' => 0
             ]);
 
             return ApiResponse::success(compact('user'));
