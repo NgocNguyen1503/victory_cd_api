@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->string('brand', 255)->nullable();
             $table->float('price')->nullable();
             $table->integer('quantity')->nullable();
+            $table->integer('total_sold')->nullable();
             $table->float('score')->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
