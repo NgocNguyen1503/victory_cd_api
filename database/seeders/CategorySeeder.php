@@ -15,7 +15,6 @@ class CategorySeeder extends Seeder
         'CD nhạc việt',
         'CD nhạc quốc tế',
         'CD hải ngoại',
-        'Giới thiệu',
 
         'Đĩa than quốc tế',
         'Đĩa than Việt Nam',
@@ -44,7 +43,7 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 0; $i < 6; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             DB::table('categories')->insert([
                 'title' => $this->titles[$i],
                 'parent_id' => 0,
@@ -53,7 +52,7 @@ class CategorySeeder extends Seeder
             ]);
         }
 
-        for ($i = 6; $i < 8; $i++) {
+        for ($i = 5; $i < 7; $i++) {
             DB::table('categories')->insert([
                 'title' => $this->titles[$i],
                 'parent_id' => 1,
@@ -62,7 +61,7 @@ class CategorySeeder extends Seeder
             ]);
         }
 
-        for ($i = 8; $i < 10; $i++) {
+        for ($i = 7; $i < 9; $i++) {
             DB::table('categories')->insert([
                 'title' => $this->titles[$i],
                 'parent_id' => 2,
@@ -71,7 +70,7 @@ class CategorySeeder extends Seeder
             ]);
         }
 
-        for ($i = 10; $i < 15; $i++) {
+        for ($i = 9; $i < 14; $i++) {
             DB::table('categories')->insert([
                 'title' => $this->titles[$i],
                 'parent_id' => 3,
@@ -80,7 +79,7 @@ class CategorySeeder extends Seeder
             ]);
         }
 
-        for ($i = 15; $i < 21; $i++) {
+        for ($i = 14; $i < 20; $i++) {
             DB::table('categories')->insert([
                 'title' => $this->titles[$i],
                 'parent_id' => 4,
@@ -89,7 +88,7 @@ class CategorySeeder extends Seeder
             ]);
         }
 
-        for ($i = 21; $i < 23; $i++) {
+        for ($i = 20; $i < 22; $i++) {
             DB::table('categories')->insert([
                 'title' => $this->titles[$i],
                 'parent_id' => 5,

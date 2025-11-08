@@ -17,7 +17,7 @@ Route::group(['prefix' => 'auth'], function () {
 
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    //
+    // can dang nhap moi duoc su dung
 });
 
 Route::get('/list-category', [ManageCategoryController::class, 'listCategory']);
