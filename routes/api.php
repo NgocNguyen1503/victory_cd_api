@@ -13,6 +13,9 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('/google/redirect', [GoogleAuthController::class, 'redirect']);
     Route::get('/google/callback', [GoogleAuthController::class, 'callback']);
     Route::get('/google/get-token', [GoogleAuthController::class, 'getToken']);
+    Route::prefix('firebase')->group(function () {
+        Route::post('/signin', [FirebaseAuthController::class, 'signin']);
+    });
 });
 
 
