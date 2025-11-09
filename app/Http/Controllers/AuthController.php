@@ -61,4 +61,16 @@ class AuthController extends Controller
             return ApiResponse::internalServerError($th->getMessage());
         }
     }
+
+    public function logout(Request $request)
+    {
+        try {
+            if (!is_null($request->header('Authorization'))) {
+                return ApiResponse::success();
+            }
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+            return ApiResponse::internalServerError($th->getMessage());
+        }
+    }
 }
