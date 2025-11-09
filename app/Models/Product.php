@@ -31,6 +31,7 @@ class Product extends Model
         'brand',
         'price',
         'quantity',
+        'total_sold',
         'score',
     ];
 

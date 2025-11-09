@@ -22,4 +22,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 Route::get('/list-category', [ManageCategoryController::class, 'listCategory']);
 Route::get('/list-product', [ManageProductController::class, 'listProduct']);
-// Route::get('/best-products', [ManageProductController::class, 'bestProducts']);
+Route::get('/best-products', [ManageProductController::class, 'bestProducts']);
+Route::get('/product-detail', [ManageProductController::class, 'productDetail']);
+Route::get('/similar-products', [ManageProductController::class, 'similarProduct']);
+
