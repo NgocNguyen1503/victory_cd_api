@@ -39,7 +39,7 @@ class ProductSeeder extends Seeder
             DB::table('products')->insert([
                 'name' => $this->names[$i],
                 'category_id' => 7,
-                'description' => "",
+                'description' => $this->descriptions[$i],
                 'price' => 10000,
                 'thumbnail_url' => env('APP_URL') . '/uploads/products/thumbnail_urls/' . $this->names[$i] . '.jpg',
                 'quantity' => random_int(0, 50),
@@ -54,7 +54,7 @@ class ProductSeeder extends Seeder
             DB::table('products')->insert([
                 'name' => $this->names[$i],
                 'category_id' => 8,
-                'description' => "",
+                'description' => $this->descriptions[$i],
                 'price' => 10000,
                 'thumbnail_url' => env('APP_URL') . '/uploads/products/thumbnail_urls/' . $this->names[$i] . '.jpg',
                 'quantity' => random_int(0, 50),
@@ -69,7 +69,7 @@ class ProductSeeder extends Seeder
             DB::table('products')->insert([
                 'name' => $this->names[$i],
                 'category_id' => 9,
-                'description' => "",
+                'description' => $this->descriptions[$i],
                 'price' => 10000,
                 'thumbnail_url' => env('APP_URL') . '/uploads/products/thumbnail_urls/' . $this->names[$i] . '.jpg',
                 'quantity' => random_int(0, 50),
