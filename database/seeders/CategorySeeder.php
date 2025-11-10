@@ -10,33 +10,33 @@ use Illuminate\Support\Facades\DB;
 class CategorySeeder extends Seeder
 {
     private $titles = [
-        'Đĩa than',
-        'Cassette',
-        'CD nhạc việt',
-        'CD nhạc quốc tế',
-        'CD hải ngoại',
+        'Laptop',
+        'Điện thoại',
+        'Tablet',
+        'Phụ kiện',
+        'Thiết bị thông minh',
 
-        'Đĩa than quốc tế',
-        'Đĩa than Việt Nam',
+        'Laptop Gaming',
+        'Laptop Văn phòng',
 
-        'Cassette quốc tế',
-        'Cassette trong nước',
+        'Điện thoại Android',
+        'Điện thoại iOS',
 
-        'Nhạc trẻ',
-        'Nhạc trữ tình',
-        'Nhạc vàng',
-        'Nhạc tiền chiến',
-        'Thơ ca, quan họ',
+        'Tai nghe',
+        'Chuột',
+        'Bàn phím',
+        'Ổ cứng',
+        'USB',
 
-        'Nhạc đồng quê',
-        'Nhạc cổ điển (Classic)',
-        'Pop',
-        'Rock',
-        'Jazz',
-        'Blues',
+        'Camera',
+        'Loa',
+        'Smartwatch',
+        'Thiết bị đo sức khỏe',
+        'Drone',
+        'Robot hút bụi',
 
-        'CD thời kỳ 1975',
-        'CD nhạc vàng'
+        'Tablet Android',
+        'Tablet iOS'
     ];
     /**
      * Run the database seeds.

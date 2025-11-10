@@ -10,25 +10,26 @@ use Illuminate\Support\Facades\DB;
 class ProductSeeder extends Seeder
 {
     private $names = [
-        "Kumiko Yokoi Hát Tại Hà Nội",
-        "felicia's Folk Music",
+        "Laptop Gaming Asus ROG",
+        "Laptop Dell Inspiron",
 
-        "Tuấn Ngọc - Trịnh Công Sơn",
-        "80 Năm Một Cuộc Đời",
+        "Điện thoại Samsung Galaxy S23",
 
-        "Cassette - Garth Brooks – The Hits",
-        "Cassette - Various – Country's Greatest Hits Volume 1 Blazin' Country",
+        "Điện thoại iPhone 14",
+
+        "Tai nghe Bluetooth Sony",
+        "Chuột Logitech MX Master",
     ];
 
     private $descriptions = [
-        "Nữ ca sĩ Nhật Bản Yokoi Kumiko có niềm mong muốn tại Việt Nam là những bài hát của cô sẽ giúp mang lại niềm vui cho những trẻ em bị dị tật vì chất độc da cam.",
-        "Album bao gồm 14 bản tình ca nổi tiếng thế giới, được Felicia Wong hát lại bằng tiếng Anh cùng cây Guitar thùng cực kỳ cuốn hút.",
+        "Laptop cấu hình mạnh, phù hợp chơi game AAA và xử lý đồ họa nặng.",
+        "Laptop văn phòng bền, pin lâu, thích hợp học tập và làm việc.",
 
-        "Không có mô tả",
-        "Em ơi em ơi, tám mươi năm hay một trăm năm. Đời người ngắn lắm, hãy sống cho trọn vẹn từng ngày",
+        "Điện thoại Android cao cấp với camera chất lượng và màn hình đẹp.",
+        "Điện thoại iOS mạnh mẽ, thiết kế tinh tế và bảo mật cao.",
 
-        "Ca sĩ kiêm nhạc sĩ nhạc đồng quê người Mỹ Garth Brooks đã phát hành 16 album phòng thu, hai album trực tiếp và 63 đĩa đơn.",
-        "Một bộ sưu tập bao gồm 10 bản hit từ những năm 80, tập trung vào các bản nhạc rock sôi động và nhạc honky tonker."
+        "Tai nghe không dây chất lượng âm thanh xuất sắc, chống ồn tốt.",
+        "Chuột không dây cho thao tác mượt mà, pin lâu, hỗ trợ đa thiết bị."
     ];
     /**
      * Run the database seeds.
@@ -50,7 +51,7 @@ class ProductSeeder extends Seeder
             ]);
         }
 
-        for ($i = 2; $i < 4; $i++) {
+        for ($i = 2; $i < 3; $i++) {
             DB::table('products')->insert([
                 'name' => $this->names[$i],
                 'category_id' => 8,
@@ -65,10 +66,40 @@ class ProductSeeder extends Seeder
             ]);
         }
 
-        for ($i = 4; $i < 6; $i++) {
+        for ($i = 3; $i < 4; $i++) {
             DB::table('products')->insert([
                 'name' => $this->names[$i],
                 'category_id' => 9,
+                'description' => $this->descriptions[$i],
+                'price' => 10000,
+                'thumbnail_url' => env('APP_URL') . '/uploads/products/thumbnail_urls/' . $this->names[$i] . '.jpg',
+                'quantity' => random_int(0, 50),
+                'total_sold' => random_int(1, 100),
+                'score' => random_int(3, 5),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ]);
+        }
+
+        for ($i = 4; $i < 5; $i++) {
+            DB::table('products')->insert([
+                'name' => $this->names[$i],
+                'category_id' => 10,
+                'description' => $this->descriptions[$i],
+                'price' => 10000,
+                'thumbnail_url' => env('APP_URL') . '/uploads/products/thumbnail_urls/' . $this->names[$i] . '.jpg',
+                'quantity' => random_int(0, 50),
+                'total_sold' => random_int(1, 100),
+                'score' => random_int(3, 5),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ]);
+        }
+
+        for ($i = 5; $i < 6; $i++) {
+            DB::table('products')->insert([
+                'name' => $this->names[$i],
+                'category_id' => 11,
                 'description' => $this->descriptions[$i],
                 'price' => 10000,
                 'thumbnail_url' => env('APP_URL') . '/uploads/products/thumbnail_urls/' . $this->names[$i] . '.jpg',
