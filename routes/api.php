@@ -24,6 +24,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('logout', [AuthController::class, 'logout']);
 
     Route::post('update-or-create-cate', [ManageCategoryController::class, 'updateOrCreateCate']);
+    Route::get('delete-cate', [ManageCategoryController::class, 'deleteCate']);
 });
 
 Route::get('/list-category', [ManageCategoryController::class, 'listCategory']);

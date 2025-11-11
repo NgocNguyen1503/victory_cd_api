@@ -63,4 +63,21 @@ class ManageCategoryController extends Controller
             return ApiResponse::forbidden("Chỉ admin mới có quyền chỉnh sửa dữ liệu!");
         }
     }
+
+    public function deleteCate(Request $request)
+    {
+        $params = $request->all();
+        $now = Carbon::now();
+        if (Auth::user()->role == 0) {
+            try {
+                DB::table('categories')->where('id', $params['category_id'])
+                    ->update(['deleted_at' => $now]);
+            } catch (\Throwable $th) {
+                Log::error($th);
+                return ApiResponse::internalServerError($th->getMessage());
+            }
+        } else {
+            return ApiResponse::forbidden("Chỉ admin mới có quyền xoá!");
+        }
+    }
 }
