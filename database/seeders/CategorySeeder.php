@@ -47,6 +47,7 @@ class CategorySeeder extends Seeder
             DB::table('categories')->insert([
                 'title' => $this->titles[$i],
                 'parent_id' => 0,
+                'thumbnail_url' => env('APP_URL') . '/uploads/products/thumbnail_urls/' . $this->titles[$i] . '.jpg',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]);
@@ -56,6 +57,7 @@ class CategorySeeder extends Seeder
             DB::table('categories')->insert([
                 'title' => $this->titles[$i],
                 'parent_id' => 1,
+                'thumbnail_url' => env('APP_URL') . '/uploads/products/thumbnail_urls/' . $this->titles[$i] . '.jpg',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]);
@@ -65,6 +67,7 @@ class CategorySeeder extends Seeder
             DB::table('categories')->insert([
                 'title' => $this->titles[$i],
                 'parent_id' => 2,
+                'thumbnail_url' => env('APP_URL') . '/uploads/products/thumbnail_urls/' . $this->titles[$i] . '.jpg',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]);
@@ -74,6 +77,7 @@ class CategorySeeder extends Seeder
             DB::table('categories')->insert([
                 'title' => $this->titles[$i],
                 'parent_id' => 3,
+                'thumbnail_url' => env('APP_URL') . '/uploads/products/thumbnail_urls/' . $this->titles[$i] . '.jpg',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]);
@@ -83,6 +87,7 @@ class CategorySeeder extends Seeder
             DB::table('categories')->insert([
                 'title' => $this->titles[$i],
                 'parent_id' => 4,
+                'thumbnail_url' => env('APP_URL') . '/uploads/products/thumbnail_urls/' . $this->titles[$i] . '.jpg',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]);
@@ -92,6 +97,7 @@ class CategorySeeder extends Seeder
             DB::table('categories')->insert([
                 'title' => $this->titles[$i],
                 'parent_id' => 5,
+                'thumbnail_url' => env('APP_URL') . '/uploads/products/thumbnail_urls/' . $this->titles[$i] . '.jpg',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]);
