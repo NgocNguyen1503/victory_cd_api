@@ -27,7 +27,6 @@ class Product extends Model
         'category_id',
         'description',
         'thumbnail_url',
-        'audio_url',
         'brand',
         'price',
         'quantity',

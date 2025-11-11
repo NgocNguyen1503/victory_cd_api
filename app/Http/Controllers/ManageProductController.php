@@ -40,9 +40,12 @@ class ManageProductController extends Controller
     {
         $param = $request->all();
         try {
-            $product = Product::select('id', 'name', 'thumbnail_url', 'price', 'description', 'score', 'category_id')
-                ->where('id', $param['product_id'])
-                ->first();
+            $product = Product::select(
+                'id', 'name', 'thumbnail_url', 'price', 
+                'description', 'score', 'category_id',
+                'total_sold', 'quantity'
+            )->where('id', $param['product_id'])
+            ->first();
             $similar_products = Product::select('id', 'name', 'thumbnail_url', 'price', 'score')
                 ->where('category_id', $product->category_id)
                 ->where('id', '<>', $product->id)
