@@ -9,11 +9,11 @@ use Illuminate\Http\Request;
 
 class ManageProductController extends Controller
 {
-    // Function get all products 
+    // Function get all products
     public function listProduct(Request $request)
     {
         try {
-            $list_products = Product::select('id', 'name', 'thumbnail_url', 'price', 'score')->get();
+            $list_products = Product::select('id', 'name', 'thumbnail_url', 'price', 'score', 'total_sold')->get();
 
             return ApiResponse::success(compact('list_products'));
         } catch (\Throwable $th) {
@@ -21,7 +21,7 @@ class ManageProductController extends Controller
             return ApiResponse::internalServerError($th->getMessage());
         }
     }
-    // Function get best 4 products 
+    // Function get best 4 products
     public function bestProducts(Request $request)
     {
         try {
@@ -35,17 +35,23 @@ class ManageProductController extends Controller
             return ApiResponse::internalServerError($th->getMessage());
         }
     }
-    // Function get product detail with feedback 
+    // Function get product detail with feedback
     public function productDetail(Request $request)
     {
         $param = $request->all();
         try {
             $product = Product::select(
-                'id', 'name', 'thumbnail_url', 'price', 
-                'description', 'score', 'category_id',
-                'total_sold', 'quantity'
+                'id',
+                'name',
+                'thumbnail_url',
+                'price',
+                'description',
+                'score',
+                'category_id',
+                'total_sold',
+                'quantity'
             )->where('id', $param['product_id'])
-            ->first();
+                ->first();
             $similar_products = Product::select('id', 'name', 'thumbnail_url', 'price', 'score')
                 ->where('category_id', $product->category_id)
                 ->where('id', '<>', $product->id)
