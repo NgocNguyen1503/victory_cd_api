@@ -20,7 +20,8 @@ class ManageProductController extends Controller
                 'thumbnail_url',
                 'price',
                 'score',
-                'total_sold'
+                'total_sold',
+                'category_id',
             )->limit(Product::LIMIT_PRODUCT)->offset($params['offset'])->get();
 
             return ApiResponse::success(compact('list_products'));
