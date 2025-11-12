@@ -13,8 +13,9 @@ class ManageProductController extends Controller
     public function listProduct(Request $request)
     {
         $params = $request->all();
+
         try {
-            $list_products = Product::select(
+            $query = Product::select(
                 'id',
                 'name',
                 'thumbnail_url',
@@ -22,7 +23,32 @@ class ManageProductController extends Controller
                 'score',
                 'total_sold',
                 'category_id',
-            )->limit(Product::LIMIT_PRODUCT)->offset($params['offset'])->get();
+                'created_at'
+            );
+
+            // sort by param sort_type
+            switch ($params['sort_type'] ?? 'default') {
+                case 'newest':
+                    $query->orderBy('created_at', 'desc');
+                    break;
+                case 'featured':
+                    $query->orderBy('total_sold', 'desc');
+                    break;
+                case 'price_asc':
+                    $query->orderBy('price', 'asc');
+                    break;
+                case 'price_desc':
+                    $query->orderBy('price', 'desc');
+                    break;
+                default:
+                    $query->orderBy('id', 'asc');
+                    break;
+            }
+
+            $list_products = $query
+                ->limit(Product::LIMIT_PRODUCT)
+                ->offset($params['offset'] ?? 0)
+                ->get();
 
             return ApiResponse::success(compact('list_products'));
         } catch (\Throwable $th) {
