@@ -12,8 +12,16 @@ class ManageProductController extends Controller
     // Function get all products
     public function listProduct(Request $request)
     {
+        $params = $request->all();
         try {
-            $list_products = Product::select('id', 'name', 'thumbnail_url', 'price', 'score', 'total_sold')->get();
+            $list_products = Product::select(
+                'id',
+                'name',
+                'thumbnail_url',
+                'price',
+                'score',
+                'total_sold'
+            )->limit(Product::LIMIT_PRODUCT)->offset($params['offset'])->get();
 
             return ApiResponse::success(compact('list_products'));
         } catch (\Throwable $th) {

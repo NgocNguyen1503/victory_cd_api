@@ -12,6 +12,8 @@ class Product extends Model
     // Sử dụng trait SoftDeletes vì bảng có cột 'deleted_at'
     use HasFactory, SoftDeletes;
 
+    const LIMIT_PRODUCT = 10;
+
     /**
      * Tên bảng nếu khác với tên số nhiều mặc định của model.
      * protected $table = 'products';
