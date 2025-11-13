@@ -6,6 +6,7 @@ use App\Helpers\ApiResponse;
 use App\Models\Product;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ManageProductController extends Controller
 {
@@ -76,16 +77,18 @@ class ManageProductController extends Controller
         $param = $request->all();
         try {
             $product = Product::select(
-                'id',
-                'name',
-                'thumbnail_url',
-                'price',
-                'description',
-                'score',
-                'category_id',
-                'total_sold',
-                'quantity'
-            )->where('id', $param['product_id'])
+                'products.id',
+                'products.name',
+                'products.thumbnail_url',
+                'products.price',
+                'products.description',
+                'products.score',
+                'products.category_id',
+                'products.total_sold',
+                'products.quantity',
+                'categories.title as category_title'
+            )->leftJoin('categories', 'categories.id', '=', 'products.category_id')
+                ->where('products.id', $param['product_id'])
                 ->first();
             $similar_products = Product::select('id', 'name', 'thumbnail_url', 'price', 'score')
                 ->where('category_id', $product->category_id)
@@ -93,15 +96,31 @@ class ManageProductController extends Controller
                 ->orderByDesc('total_sold')
                 ->limit(5)
                 ->get();
-            return ApiResponse::success(compact('product', 'similar_products'));
+            $product_feedbacks = DB::table('products')
+                ->join('bill_details', 'bill_details.product_id', '=', 'products.id')
+                ->join('bills', 'bills.id', '=', 'bill_details.bill_id')
+                ->join('feedbacks', 'feedbacks.bill_id', '=', 'bills.id')
+                ->join('users', 'users.id', '=', 'feedbacks.user_id')
+                ->where('products.id', $param['product_id'])
+                ->where('feedbacks.type', 0) // chỉ lấy loại đánh giá
+                ->where('feedbacks.status', 1) // đã duyệt
+                ->select(
+                    'feedbacks.id',
+                    'feedbacks.comment',
+                    'feedbacks.score',
+                    'feedbacks.created_at',
+                    'users.name as user_name',
+                    'users.avatar as user_avatar'
+                )
+                ->orderBy('feedbacks.id', 'desc')
+                ->get();
+            $feedback_count = $product_feedbacks->count();
+            return ApiResponse::success(compact('product', 'similar_products', 'product_feedbacks', 'feedback_count'));
         } catch (\Throwable $th) {
             Log::error($th);
             return ApiResponse::internalServerError($th->getMessage());
         }
     }
-    // feedbacks(type=0, status=1)->join(bills)->join(bill_details)->where(product_id = $param['product_id'])->get()
-    // TODO: thêm phần đánh giá của sản phẩm
-
     public function similarProduct(Request $request)
     {
         $param = $request->all();
