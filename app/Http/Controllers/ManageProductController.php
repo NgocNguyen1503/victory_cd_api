@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Helpers\ApiResponse;
 use App\Models\Product;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -57,6 +59,65 @@ class ManageProductController extends Controller
             return ApiResponse::internalServerError($th->getMessage());
         }
     }
+    // Function update or create product
+    public function updateOrCreateProduct(Request $request)
+    {
+        $params = $request->all();
+        $now = Carbon::now();
+
+        // Chỉ admin mới được phép thao tác
+        if (Auth::user()->role == 0) {
+            try {
+                // Tạo hoặc cập nhật sản phẩm
+                $product = Product::updateOrCreate(
+                    [
+                        'name' => $params['name'],
+                        'category_id' => $params['category_id'],
+                    ],
+                    [
+                        'description' => $params['description'] ?? null,
+                        'brand' => $params['brand'] ?? null,
+                        'price' => $params['price'] ?? 0,
+                        'quantity' => $params['quantity'] ?? 0,
+                        'total_sold' => $params['total_sold'] ?? 0,
+                        'score' => $params['score'] ?? 0,
+                        'thumbnail_url' => env('APP_URL') . '/uploads/products/thumbnail_urls/' . $params['name'] . '.jpg',
+                        'updated_at' => $now,
+                    ]
+                );
+
+                return ApiResponse::success($product, "Cập nhật sản phẩm thành công!");
+            } catch (\Throwable $th) {
+                Log::error($th);
+                return ApiResponse::internalServerError($th->getMessage());
+            }
+        } else {
+            return ApiResponse::forbidden("Chỉ admin mới có quyền chỉnh sửa dữ liệu!");
+        }
+    }
+
+    // Function delele product
+    public function deleteProduct(Request $request)
+    {
+        $params = $request->all();
+        $now = Carbon::now();
+
+        if (Auth::user()->role == 0) {
+            try {
+                DB::table('products')
+                    ->where('id', $params['product_id'])
+                    ->update(['deleted_at' => $now]);
+
+                return ApiResponse::success(null, "Xóa sản phẩm thành công!");
+            } catch (\Throwable $th) {
+                Log::error($th);
+                return ApiResponse::internalServerError($th->getMessage());
+            }
+        } else {
+            return ApiResponse::forbidden("Chỉ admin mới có quyền xoá!");
+        }
+    }
+
     // Function get best 4 products
     public function bestProducts(Request $request)
     {

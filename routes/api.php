@@ -25,6 +25,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::post('update-or-create-cate', [ManageCategoryController::class, 'updateOrCreateCate']);
     Route::get('delete-cate', [ManageCategoryController::class, 'deleteCate']);
+    Route::post('update-or-create-product', [ManageProductController::class, 'updateOrCreateProduct']);
+    Route::get('delete-product', [ManageProductController::class, 'deleteProduct']);
 });
 
 Route::get('/list-category', [ManageCategoryController::class, 'listCategory']);
