@@ -12,9 +12,9 @@ class CategorySeeder extends Seeder
     private $titles = [
         'Laptop',
         'Điện thoại',
-        'Tablet',
         'Phụ kiện',
         'Thiết bị thông minh',
+        'Tablet',
 
         'Laptop Gaming',
         'Laptop Văn phòng',
