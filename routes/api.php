@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FirebaseAuthController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\ManageCategoryController;
 use App\Http\Controllers\ManageProductController;
