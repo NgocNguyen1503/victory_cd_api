@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\ApiResponse;
+use App\Models\Category;
 use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -28,6 +29,22 @@ class ManageProductController extends Controller
                 'category_id',
                 'created_at'
             );
+
+            // select and sort by category
+            if (!empty($params['category_id'])) {
+                $categoryId = $params['category_id'];
+                $category = Category::find($categoryId);
+
+                if ($category) {
+                    if ($category->parent_id == 0) {
+                        $childIds = Category::where('parent_id', $categoryId)->pluck('id')->toArray();
+                        $childIds[] = $categoryId;
+                        $query->whereIn('category_id', $childIds);
+                    } else {
+                        $query->where('category_id', $categoryId);
+                    }
+                }
+            }
 
             // sort by param sort_type
             switch ($params['sort_type'] ?? 'default') {
