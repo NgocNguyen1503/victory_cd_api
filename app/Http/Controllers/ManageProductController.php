@@ -30,7 +30,7 @@ class ManageProductController extends Controller
                 'created_at'
             );
 
-            // select and sort by category
+            // filter by category
             if (!empty($params['category_id'])) {
                 $categoryId = $params['category_id'];
                 $category = Category::find($categoryId);
@@ -44,6 +44,12 @@ class ManageProductController extends Controller
                         $query->where('category_id', $categoryId);
                     }
                 }
+            }
+
+            // filter by search key
+            if (!empty($params['search_key'])) {
+                $searchKey = $params['search_key'];
+                $query->where('name', 'like', "%{$searchKey}%");
             }
 
             // sort by param sort_type
@@ -76,6 +82,7 @@ class ManageProductController extends Controller
             return ApiResponse::internalServerError($th->getMessage());
         }
     }
+
     // Function update or create product
     public function updateOrCreateProduct(Request $request)
     {
