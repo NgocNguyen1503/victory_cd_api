@@ -11,6 +11,9 @@ class Bill extends Model
 {
     use HasFactory;
 
+    const PAYMENT_METHOD_ONLINE = 0;
+    const PAYMENT_METHOD_OFFLINE = 1;
+
     /**
      * Các thuộc tính có thể được gán giá trị hàng loạt (mass assignable).
      *

@@ -6,6 +6,7 @@ use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\ManageCategoryController;
 use App\Http\Controllers\ManageProductController;
 use App\Http\Controllers\ManageUserController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/login', [AuthController::class, 'login']);
@@ -29,6 +30,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('delete-cate', [ManageCategoryController::class, 'deleteCate']);
     Route::post('update-or-create-product', [ManageProductController::class, 'updateOrCreateProduct']);
     Route::get('delete-product', [ManageProductController::class, 'deleteProduct']);
+
+    Route::post('create-bill', [PaymentController::class, 'createBill']);
+    Route::get('check-payment-status', [PaymentController::class, 'checkPaymentStatus']);
 });
 
 Route::get('/list-category', [ManageCategoryController::class, 'listCategory']);
