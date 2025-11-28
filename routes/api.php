@@ -5,6 +5,7 @@ use App\Http\Controllers\FirebaseAuthController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\ManageCategoryController;
 use App\Http\Controllers\ManageProductController;
+use App\Http\Controllers\ManageUserController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/login', [AuthController::class, 'login']);
@@ -19,10 +20,10 @@ Route::group(['prefix' => 'auth'], function () {
     });
 });
 
-
 Route::middleware(['auth:sanctum'])->group(function () {
     // can dang nhap moi duoc su dung
     Route::get('logout', [AuthController::class, 'logout']);
+    Route::get('user-infor', [ManageUserController::class, 'userInfor']);
 
     Route::post('update-or-create-cate', [ManageCategoryController::class, 'updateOrCreateCate']);
     Route::get('delete-cate', [ManageCategoryController::class, 'deleteCate']);
