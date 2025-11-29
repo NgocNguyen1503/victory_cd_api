@@ -53,7 +53,7 @@ class PaymentController extends Controller
 
                 if (!is_null($res)) {
                     $bill->checkout_url = $res['checkoutUrl'];
-                    return ApiResponse::success($bill);
+                    return ApiResponse::success(compact('bill'));
                 }
 
                 return ApiResponse::internalServerError("Không thể tạo link thanh toán online");
@@ -62,7 +62,7 @@ class PaymentController extends Controller
                 $bill->save();
             }
 
-            return ApiResponse::success($bill);
+            return ApiResponse::success(compact('bill'));
         } catch (\Throwable $th) {
             return ApiResponse::internalServerError($th->getMessage());
         }
