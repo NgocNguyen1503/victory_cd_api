@@ -13,6 +13,13 @@ class Bill extends Model
 
     const PAYMENT_METHOD_ONLINE = 0;
     const PAYMENT_METHOD_OFFLINE = 1;
+    const STATUS_CANCELLED = 0;
+    const STATUS_PROCESSING = 1;
+    const STATUS_PENDING = 2;
+    const STATUS_PAID = 3;
+    const STATUS_PREPARING = 4;
+    const STATUS_SHIPPING = 5;
+    const STATUS_DONE = 6;
 
     /**
      * Các thuộc tính có thể được gán giá trị hàng loạt (mass assignable).

@@ -33,6 +33,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::post('create-bill', [PaymentController::class, 'createBill']);
     Route::get('check-payment-status', [PaymentController::class, 'checkPaymentStatus']);
+    Route::get('order-history', [ManageUserController::class, 'orderHistory']);
+    Route::post('update-profile', [ManageUserController::class, 'updateProfile']);
+
 });
 
 Route::get('/list-category', [ManageCategoryController::class, 'listCategory']);
