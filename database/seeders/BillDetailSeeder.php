@@ -25,7 +25,7 @@ class BillDetailSeeder extends Seeder
 
                 DB::table('bill_details')->insert([
                     'bill_id' => $bill_id,
-                    'product_id' => $product_id,
+                    'product_id' => fake()->numberBetween(1, 10),
                     'quantity' => $quantity,
                     'total_price' => $total,
                     'created_at' => Carbon::now(),

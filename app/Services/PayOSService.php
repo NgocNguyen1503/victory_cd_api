@@ -40,7 +40,7 @@ class PayOSService
                 'description' => "Thanh toán hóa đơn {$bill->order_code}",
                 'items' => $items,
                 'returnUrl' => 'http://localhost:5173/profile?tab=orders',
-                'cancelUrl' => 'http://localhost:5173/payfail',
+                'cancelUrl' => 'http://localhost:5173/home',
                 'expiredAt' => Carbon::now()->addMinutes(10)->timestamp
             ];
 
