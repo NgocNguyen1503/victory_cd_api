@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FirebaseAuthController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\ManageCategoryController;
+use App\Http\Controllers\ManageOrderController;
 use App\Http\Controllers\ManageProductController;
 use App\Http\Controllers\ManageUserController;
 use App\Http\Controllers\PaymentController;
@@ -43,4 +44,8 @@ Route::get('/list-product', [ManageProductController::class, 'listProduct']);
 Route::get('/best-products', [ManageProductController::class, 'bestProducts']);
 Route::get('/product-detail', [ManageProductController::class, 'productDetail']);
 Route::get('/similar-products', [ManageProductController::class, 'similarProduct']);
+
+Route::get('/list-orders', [ManageOrderController::class, 'listOrder']);
+Route::post('/update-order-status', [ManageOrderController::class, 'updateOrderStatus']);
+
 
