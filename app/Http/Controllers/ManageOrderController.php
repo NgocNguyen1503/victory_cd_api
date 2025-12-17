@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ManageOrderController extends Controller
@@ -86,6 +87,51 @@ class ManageOrderController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Cập nhật trạng thái thất bại',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    // Function feedback sản phẩm
+    public function sendFeedback(Request $request)
+    {
+        $request->validate([
+            'bill_id' => 'required|exists:bills,id',
+            'score'   => 'required|integer|min:1|max:5',
+            'comment' => 'nullable|string',
+        ]);
+
+        try {
+            $userId = Auth::id(); // Lấy ID user đang đăng nhập
+
+            // 1. Kiểm tra xem user đã đánh giá đơn này chưa
+            $exists = DB::table('feedbacks')
+                ->where('user_id', $userId)
+                ->where('bill_id', $request->bill_id)
+                ->where('type', 0) // 0 là rate
+                ->exists();
+
+            if ($exists) {
+                return response()->json(['message' => 'Bạn đã đánh giá đơn hàng này rồi.'], 400);
+            }
+
+            // 2. Thêm đánh giá vào bảng feedbacks
+            DB::table('feedbacks')->insert([
+                'type'       => 0,
+                'bill_id'    => $request->bill_id,
+                'user_id'    => $userId,
+                'score'      => $request->score,
+                'comment'    => $request->comment,
+                'status'     => 1, // Mặc định hiện
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            return response()->json(['message' => 'Gửi đánh giá thành công!'], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Lỗi hệ thống', 
                 'error' => $e->getMessage()
             ], 500);
         }

@@ -36,6 +36,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('check-payment-status', [PaymentController::class, 'checkPaymentStatus']);
     Route::get('order-history', [ManageUserController::class, 'orderHistory']);
     Route::post('update-profile', [ManageUserController::class, 'updateProfile']);
+    Route::post('/send-feedback', [ManageOrderController::class, 'sendFeedback']);
 
 });
 
@@ -47,5 +48,6 @@ Route::get('/similar-products', [ManageProductController::class, 'similarProduct
 
 Route::get('/list-orders', [ManageOrderController::class, 'listOrder']);
 Route::post('/update-order-status', [ManageOrderController::class, 'updateOrderStatus']);
+
 
 

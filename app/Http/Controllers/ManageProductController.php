@@ -160,6 +160,7 @@ class ManageProductController extends Controller
     public function productDetail(Request $request)
     {
         $param = $request->all();
+        $productId = $request->product_id;
         try {
             $product = Product::select(
                 'products.id',
@@ -181,23 +182,23 @@ class ManageProductController extends Controller
                 ->orderByDesc('total_sold')
                 ->limit(5)
                 ->get();
-            $product_feedbacks = DB::table('products')
-                ->join('bill_details', 'bill_details.product_id', '=', 'products.id')
-                ->join('bills', 'bills.id', '=', 'bill_details.bill_id')
-                ->join('feedbacks', 'feedbacks.bill_id', '=', 'bills.id')
+            $product_feedbacks = DB::table('feedbacks')
                 ->join('users', 'users.id', '=', 'feedbacks.user_id')
-                ->where('products.id', $param['product_id'])
-                ->where('feedbacks.type', 0) // chỉ lấy loại đánh giá
-                ->where('feedbacks.status', 1) // đã duyệt
+                ->join('bills', 'bills.id', '=', 'feedbacks.bill_id')
+                ->join('bill_details', 'bill_details.bill_id', '=', 'bills.id')
+                ->where('bill_details.product_id', $productId) // Lọc theo sản phẩm hiện tại
+                ->where('feedbacks.type', 0)    // 0 = Rate
+                ->where('feedbacks.status', 1)  // 1 = Active
                 ->select(
                     'feedbacks.id',
                     'feedbacks.comment',
                     'feedbacks.score',
                     'feedbacks.created_at',
                     'users.name as user_name',
-                    'users.avatar as user_avatar'
+                    'users.avatar as user_avatar' // Đảm bảo bảng users có cột avatar, nếu không thì bỏ dòng này
                 )
-                ->orderBy('feedbacks.id', 'desc')
+                ->distinct() // Tránh trùng lặp nếu 1 bill có 2 dòng sản phẩm giống nhau (hiếm nhưng có thể)
+                ->orderBy('feedbacks.created_at', 'desc')
                 ->get();
             $feedback_count = $product_feedbacks->count();
             return ApiResponse::success(compact('product', 'similar_products', 'product_feedbacks', 'feedback_count'));
