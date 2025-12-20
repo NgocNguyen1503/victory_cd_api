@@ -52,7 +52,7 @@ class ManageDashboardController extends Controller
             return response()->json([
                 'success' => true,
                 'data' => $revenueByYear,
-            ]);            
+            ]);
         } catch (\Throwable $th) {
             return response()->json([
                 'success' => false,

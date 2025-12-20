@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FirebaseAuthController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\ManageCategoryController;
+use App\Http\Controllers\ManageDashboardController;
 use App\Http\Controllers\ManageOrderController;
 use App\Http\Controllers\ManageProductController;
 use App\Http\Controllers\ManageUserController;
@@ -49,5 +50,5 @@ Route::get('/similar-products', [ManageProductController::class, 'similarProduct
 Route::get('/list-orders', [ManageOrderController::class, 'listOrder']);
 Route::post('/update-order-status', [ManageOrderController::class, 'updateOrderStatus']);
 
-
-
+Route::get('/get-statistics', [ManageDashboardController::class, 'getStatistics']);
+Route::get('/get-revenue-by-year', [ManageDashboardController::class, 'getRevenueByYear']);
