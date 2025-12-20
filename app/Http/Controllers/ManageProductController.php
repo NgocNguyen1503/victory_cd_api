@@ -27,7 +27,9 @@ class ManageProductController extends Controller
                 'score',
                 'total_sold',
                 'category_id',
-                'created_at'
+                'created_at',
+                'quantity',
+                'description'
             );
 
             // filter by category

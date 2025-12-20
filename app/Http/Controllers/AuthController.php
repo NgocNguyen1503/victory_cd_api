@@ -51,7 +51,7 @@ class AuthController extends Controller
                 'name' => $validated['name'],
                 'email' => $validated['email'],
                 'password' => Hash::make($validated['password']),
-                'role' => 0
+                'role' => 1
             ]);
 
             return ApiResponse::success(compact('user'));
