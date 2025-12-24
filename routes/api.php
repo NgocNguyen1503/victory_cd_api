@@ -52,3 +52,4 @@ Route::post('/update-order-status', [ManageOrderController::class, 'updateOrderS
 
 Route::get('/get-statistics', [ManageDashboardController::class, 'getStatistics']);
 Route::get('/get-revenue-by-year', [ManageDashboardController::class, 'getRevenueByYear']);
+Route::get('/get-monthly-revenue', [ManageDashboardController::class, 'getMonthlyRevenue']);
