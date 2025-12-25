@@ -55,7 +55,7 @@ class UserSeeder extends Seeder
                 'phone' => $this->phones[$i],
                 'address' => $this->addresses[$i],
                 'email_verified_at' => Carbon::now(),
-                'role' => 0,
+                'role' => fake()->numberBetween(0, 1),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]);

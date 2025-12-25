@@ -9,6 +9,7 @@ use App\Http\Controllers\ManageOrderController;
 use App\Http\Controllers\ManageProductController;
 use App\Http\Controllers\ManageUserController;
 use App\Http\Controllers\PaymentController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/login', [AuthController::class, 'login']);
@@ -53,3 +54,10 @@ Route::post('/update-order-status', [ManageOrderController::class, 'updateOrderS
 Route::get('/get-statistics', [ManageDashboardController::class, 'getStatistics']);
 Route::get('/get-revenue-by-year', [ManageDashboardController::class, 'getRevenueByYear']);
 Route::get('/get-monthly-revenue', [ManageDashboardController::class, 'getMonthlyRevenue']);
+
+Route::get('/list-customer', function () {
+    return response()->json([
+        'status' => true,
+        'data' => User::all()
+    ]);
+});
