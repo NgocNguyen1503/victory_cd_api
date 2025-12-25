@@ -61,3 +61,5 @@ Route::get('/list-customer', function () {
         'data' => User::all()
     ]);
 });
+
+Route::get('/list-product-v2', [ManageProductController::class, 'listProductV2']);

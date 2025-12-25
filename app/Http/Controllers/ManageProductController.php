@@ -85,6 +85,77 @@ class ManageProductController extends Controller
         }
     }
 
+    public function listProductV2(Request $request)
+    {
+        $params = $request->all();
+
+        try {
+            $query = Product::select(
+                'id',
+                'name',
+                'thumbnail_url',
+                'price',
+                'score',
+                'total_sold',
+                'category_id',
+                'created_at',
+                'quantity',
+                'description'
+            );
+
+            // filter by category
+            if (!empty($params['category_id'])) {
+                $categoryId = $params['category_id'];
+                $category = Category::find($categoryId);
+
+                if ($category) {
+                    if ($category->parent_id == 0) {
+                        $childIds = Category::where('parent_id', $categoryId)->pluck('id')->toArray();
+                        $childIds[] = $categoryId;
+                        $query->whereIn('category_id', $childIds);
+                    } else {
+                        $query->where('category_id', $categoryId);
+                    }
+                }
+            }
+
+            // filter by search key
+            if (!empty($params['search_key'])) {
+                $searchKey = $params['search_key'];
+                $query->where('name', 'like', "%{$searchKey}%");
+            }
+
+            // sort by param sort_type
+            switch ($params['sort_type'] ?? 'default') {
+                case 'newest':
+                    $query->orderBy('created_at', 'desc');
+                    break;
+                case 'featured':
+                    $query->orderBy('total_sold', 'desc');
+                    break;
+                case 'price_asc':
+                    $query->orderBy('price', 'asc');
+                    break;
+                case 'price_desc':
+                    $query->orderBy('price', 'desc');
+                    break;
+                default:
+                    $query->orderBy('id', 'asc');
+                    break;
+            }
+
+            $list_products = $query
+                ->limit(500)
+                ->offset($params['offset'] ?? 0)
+                ->get();
+
+            return ApiResponse::success(compact('list_products'));
+        } catch (\Throwable $th) {
+            Log::error($th);
+            return ApiResponse::internalServerError($th->getMessage());
+        }
+    }
+
     // Function update or create product
     public function updateOrCreateProduct(Request $request)
     {

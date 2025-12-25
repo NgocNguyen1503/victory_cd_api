@@ -8,14 +8,14 @@ use Illuminate\Support\Facades\DB;
 
 class ManageOrderController extends Controller
 {
-    // Lấy danh sách đơn hàng 
+    // Lấy danh sách đơn hàng
     public function listOrder()
     {
         $orders = DB::table('bills')
             ->join('users', 'users.id', '=', 'bills.user_id')
             ->join('bill_details', 'bill_details.bill_id', '=', 'bills.id')
             ->join('products', 'products.id', '=', 'bill_details.product_id')
-            ->whereIn('bills.status', [4,5,6])
+            ->whereIn('bills.status', [3, 4, 5, 6])
             ->select(
                 'bills.id',
                 'bills.order_code',
@@ -97,7 +97,7 @@ class ManageOrderController extends Controller
     {
         $request->validate([
             'bill_id' => 'required|exists:bills,id',
-            'score'   => 'required|integer|min:1|max:5',
+            'score' => 'required|integer|min:1|max:5',
             'comment' => 'nullable|string',
         ]);
 
@@ -117,12 +117,12 @@ class ManageOrderController extends Controller
 
             // 2. Thêm đánh giá vào bảng feedbacks
             DB::table('feedbacks')->insert([
-                'type'       => 0,
-                'bill_id'    => $request->bill_id,
-                'user_id'    => $userId,
-                'score'      => $request->score,
-                'comment'    => $request->comment,
-                'status'     => 1, // Mặc định hiện
+                'type' => 0,
+                'bill_id' => $request->bill_id,
+                'user_id' => $userId,
+                'score' => $request->score,
+                'comment' => $request->comment,
+                'status' => 1, // Mặc định hiện
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -131,7 +131,7 @@ class ManageOrderController extends Controller
 
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Lỗi hệ thống', 
+                'message' => 'Lỗi hệ thống',
                 'error' => $e->getMessage()
             ], 500);
         }
